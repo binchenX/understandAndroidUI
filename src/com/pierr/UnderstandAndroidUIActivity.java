@@ -34,6 +34,8 @@ import android.view.SurfaceHolder;
 public class UnderstandAndroidUIActivity extends Activity implements SurfaceHolder.Callback2 {
     DrawingThread mDrawingThread;
     
+    static final String TAG = "UnderstandAndroidUI";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,8 @@ public class UnderstandAndroidUIActivity extends Activity implements SurfaceHold
     /* implement SurfaceHolder.Callback2 */
 
     public void surfaceCreated(SurfaceHolder holder) {
+    	
+    	Log.d(TAG, "surfacecreated");
         // Tell the drawing thread that a surface is available.
         synchronized (mDrawingThread) {
             mDrawingThread.mSurface = holder;
@@ -102,7 +106,8 @@ public class UnderstandAndroidUIActivity extends Activity implements SurfaceHold
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         // We need to tell the drawing thread to stop, and block until
-        // it has done so.
+        // it has done so. 	
+    	Log.d(TAG, "surfaceDestroyed");
         synchronized (mDrawingThread) {
             mDrawingThread.mSurface = holder;
             mDrawingThread.notify();
@@ -178,6 +183,10 @@ public class UnderstandAndroidUIActivity extends Activity implements SurfaceHold
         final int[] mOldColor = new int[NUM_OLD];
         int mBrightLine = 0;
         
+        float startX = 0 ;
+        float startY = 0;
+        
+        
         // X is red, Y is blue.
         final MovingPoint mColor = new MovingPoint();
         
@@ -202,10 +211,21 @@ public class UnderstandAndroidUIActivity extends Activity implements SurfaceHold
             mForeground.setAntiAlias(false);
             mForeground.setStrokeWidth(mLineWidth);
             
-            while (true) {
+            
+            for (int i = 0; i< 1000; i++) {
+            //while (true) {
                 // Synchronize with activity: block until the activity is ready
                 // and we have a surface; report whether we are active or inactive
                 // at this point; exit thread when asked to quit.
+            	
+            	try {
+            		
+            		Thread.sleep(1000);
+            	}catch (Exception ex)
+            	{
+            		Log.d(TAG, "Sleep 1 seoncd was interrupted");
+            		
+            	}
                 synchronized (this) {
                     while (mSurface == null || !mRunning) {
                         if (mActive) {
@@ -228,11 +248,21 @@ public class UnderstandAndroidUIActivity extends Activity implements SurfaceHold
                     
                     // Lock the canvas for drawing.
                     Canvas canvas = mSurface.lockCanvas();
+                    
+                    
+                    Log.d(TAG, "lockCanvas");
                     if (canvas == null) {
                         Log.i("WindowSurface", "Failure locking canvas");
                         continue;
                     }
                     
+                    Log.i(TAG, "canvas size = " + canvas.getWidth() +  " x " +  canvas.getHeight());
+                    
+                    
+                    //draw a line
+                    canvas.drawLine(startX , startY + i * 5, startX + 100, startY + i * 5, mForeground);
+                    
+                    /*
                     // Update graphics.
                     if (!mInitialized) {
                         mInitialized = true;
@@ -282,9 +312,12 @@ public class UnderstandAndroidUIActivity extends Activity implements SurfaceHold
                     mOld[2] = mPoint2.x;
                     mOld[3] = mPoint2.y;
                     mOldColor[0] = color;
+                    */
                     
                     // All done!
                     mSurface.unlockCanvasAndPost(canvas);
+                    
+                    Log.d(TAG, "unlockCanvasAndPost");
                 }
             }
         }
