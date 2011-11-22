@@ -17,6 +17,7 @@
 package com.pierr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -49,6 +50,8 @@ public class UnderstandAndroidUIActivity extends Activity implements
 	UnderstandAndroidUIActivity that = this;
 
 	boolean toogle = false; // false means pause
+	
+	int requestCode = 0x1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +115,32 @@ public class UnderstandAndroidUIActivity extends Activity implements
 
 			}
 		});
+		
+		
+		Button bt2 = (Button) findViewById(R.id.button2);
 
+		bt2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				Intent intent = new Intent(UnderstandAndroidUIActivity.this, TransparentActivity.class);
+					
+				startActivityForResult(intent, requestCode);
+				
+
+			}
+		});
+
+	}
+	
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
