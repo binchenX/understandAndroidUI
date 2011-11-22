@@ -14,7 +14,7 @@
             </intent-filter>
         </activity>
          <activity android:name=".TransparentActivity"
-         android:theme="@android:style/Theme.Translucent">
+         android:theme="@style/Theme.MyTheme1">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
