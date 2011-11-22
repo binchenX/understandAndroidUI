@@ -68,7 +68,11 @@ public class UnderstandAndroidUIActivity extends Activity implements
 
 		setContentView(R.layout.main);
 
+<<<<<<< HEAD
 	//	mWindow = getWindow();
+=======
+		mWindow = getWindow();
+>>>>>>> 46f3c737d500c177f943d424bcadf2b820061596
 		
 		
 		//I want to know 
@@ -84,9 +88,15 @@ public class UnderstandAndroidUIActivity extends Activity implements
 		
 		//Show the Window and ViewRoot attribution in the TextArea
 		
+<<<<<<< HEAD
 		StringBuilder sb = new StringBuilder("Info of Activity1\n");
 		
 		sb.append("window " + window).append("\n")
+=======
+		StringBuilder sb = new StringBuilder("Info of Activity1");
+		
+		sb.append("window " + window)
+>>>>>>> 46f3c737d500c177f943d424bcadf2b820061596
 		  .append("viewRoot " + viewRoot);
 		
 		TextView textV = (TextView)findViewById(R.id.text1);
