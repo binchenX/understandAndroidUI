@@ -16,12 +16,15 @@
 
 package com.pierr;
 
+import org.w3c.dom.Text;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.sax.TextElementListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -32,6 +35,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Demonstrates how to take over the Surface from a window to do direct drawing
@@ -65,6 +69,33 @@ public class UnderstandAndroidUIActivity extends Activity implements
 		setContentView(R.layout.main);
 
 		mWindow = getWindow();
+		
+		
+		//I want to know 
+		// 1. which window i belong to
+		// 2. my ViewRoot
+		// 3. My Surface
+		
+		//http://stackoverflow.com/questions/4486034/android-how-to-get-root-view-from-current-activity
+		
+		View viewRoot = findViewById(android.R.id.content);
+		
+		Window window = getWindow();
+		
+		//Show the Window and ViewRoot attribution in the TextArea
+		
+		StringBuilder sb = new StringBuilder("Info of Activity1");
+		
+		sb.append("window " + window)
+		  .append("viewRoot " + viewRoot);
+		
+		TextView textV = (TextView)findViewById(R.id.text1);
+		
+		textV.setText(sb.toString());
+		
+		//View viewRoot2 = getWindow().getDecorView().findViewById(android.R.id.content)?
+		
+		
 
 		// just to getTheSurfaceHold...
 		// It is not later try to hold the surface when you click the button
