@@ -33,6 +33,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -77,23 +78,38 @@ public class UnderstandAndroidUIActivity extends Activity implements
 		// 3. My Surface
 		
 		//http://stackoverflow.com/questions/4486034/android-how-to-get-root-view-from-current-activity
-		
+		//which is a frameLayout
 		View viewRoot = findViewById(android.R.id.content);
 		
+		
 		Window window = getWindow();
+		
+		//It is this decoView that will be treated as Window and 
+		//add to the Window Manager
+		
+		View decoView = window.getDecorView();
 		
 		//Show the Window and ViewRoot attribution in the TextArea
 		
 
 		StringBuilder sb = new StringBuilder("Info of Activity1\n");
 		
-		sb.append("window " + window).append("\n")
-
-		  .append("viewRoot " + viewRoot);
+		//WindowManager wm = window.getWindowManager();
+		
+		
+		
+		sb.append("\n window " + window)
+		  .append("\n decoView " + decoView)
+		  .append("\n viewRoot " + viewRoot)
+		  .append("\n width " +  viewRoot.getWidth())   // 0 
+		  .append("\n height " + viewRoot.getHeight())  // 0 
+		  ;
 		
 		TextView textV = (TextView)findViewById(R.id.text1);
 		
+		textV.setTextSize(15.0f);
 		textV.setText(sb.toString());
+		
 		
 		//View viewRoot2 = getWindow().getDecorView().findViewById(android.R.id.content)?
 		

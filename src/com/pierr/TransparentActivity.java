@@ -28,9 +28,9 @@ public class TransparentActivity extends Activity {
 
 		StringBuilder sb = new StringBuilder("Info of current Activity\n");
 		
-		sb.append("window " + window).append("\n")
-
-		  .append("viewRoot " + viewRoot);
+		sb.append("\n window " + window)
+          .append("\n decoView " + window.getDecorView()) 
+		  .append("\n viewRoot " + viewRoot);
 		
 		TextView textV = (TextView)findViewById(R.id.trans_text);
 		
