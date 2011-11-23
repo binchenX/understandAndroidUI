@@ -114,11 +114,26 @@ public class MyCustomizeView extends View{
 		invalidate();
 	}
 
+	
+	
+	
+	/**
+	 * 
+	 * override this method to tell parent the desired width and height
+	 * 
+	 *  
+	 */
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// TODO Auto-generated method stub
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
+		//E.G: You can force the dimension to be (400, 100)
+		//It will override the value specified in the XML 
+		
+		//setMeasuredDimension(400, 100);
+		
 	}
 	
 	

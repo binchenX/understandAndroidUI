@@ -2,4 +2,7 @@
 <resources>
     <string name="hello">Hello World, UnderstandAndroidUIActivity!</string>
     <string name="app_name">UnderstandAndroidUI</string>
+    <string name="start">start Surface View Animation</string>
+    <string name="pause">pause</string>
+    <string name="resume">resume</string>
 </resources>

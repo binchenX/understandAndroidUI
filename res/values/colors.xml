@@ -2,5 +2,6 @@
 <resources>
 
 <color name="transparent">#44000000</color>
+<color name="surfaceViewBackground">#4400FF00</color>
 
 </resources>

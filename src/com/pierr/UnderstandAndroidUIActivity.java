@@ -70,6 +70,10 @@ public class UnderstandAndroidUIActivity extends Activity implements
 		setContentView(R.layout.main);
 
 
+		//Button bt = (Button) findViewById(R.id.button1);
+		
+		//bt.setText(R.string.start);
+		
 		
 		
 		//I want to know 
@@ -98,13 +102,10 @@ public class UnderstandAndroidUIActivity extends Activity implements
 		
 		
 		
-		sb.append("\n window " + window)
-		  .append("\n decoView " + decoView)
-		  .append("\n viewRoot " + viewRoot)
-		  .append("\n width " +  viewRoot.getWidth())   // 0 
-		  .append("\n height " + viewRoot.getHeight())  // 0 
-		  ;
-		
+		sb.append("\n window \n" + window)
+		  .append("\n decoView \n " + decoView)
+		  .append("\n viewRoot \n " + viewRoot);
+		  
 		TextView textV = (TextView)findViewById(R.id.text1);
 		
 		textV.setTextSize(15.0f);
@@ -150,37 +151,41 @@ public class UnderstandAndroidUIActivity extends Activity implements
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
+				Button b = (Button)v;
+				
 				// mWindow.takeSurface(that);
 				toogle = !toogle;
 				if (toogle == true) {
 					Log.d(TAG, "Let's play mSurfaceView");
 					mSurfaceView.play();
+					b.setText(R.string.pause);
 					
 				} else {
 					Log.d(TAG, "Let's pause mSurfaceView");
 					mSurfaceView.pause();
 					Log.d(TAG, "end pause ");
+					b.setText(R.string.resume);
 				}
 
 			}
 		});
 		
 		
-		Button bt2 = (Button) findViewById(R.id.button2);
-
-		bt2.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				Intent intent = new Intent(UnderstandAndroidUIActivity.this, TransparentActivity.class);
-					
-				startActivityForResult(intent, requestCode);
-				
-
-			}
-		});
+//		Button bt2 = (Button) findViewById(R.id.button2);
+//
+//		bt2.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				
+//				Intent intent = new Intent(UnderstandAndroidUIActivity.this, TransparentActivity.class);
+//					
+//				startActivityForResult(intent, requestCode);
+//				
+//
+//			}
+//		});
 
 	}
 	
@@ -196,28 +201,38 @@ public class UnderstandAndroidUIActivity extends Activity implements
 	protected void onPause() {
 		super.onPause();
 
+		Log.d(TAG,"onPause");
 		/*
 		 * // Make sure the drawing thread is not running while we are paused.
 		 * synchronized (mDrawingThread) { mDrawingThread.mRunning = false;
 		 * mDrawingThread.notify(); }
 		 */
+		
+		mSurfaceView.pause();
 
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		Log.d(TAG,"onResume");
 
 		/*
 		 * // Let the drawing thread resume running. synchronized
 		 * (mDrawingThread) { mDrawingThread.mRunning = true;
 		 * mDrawingThread.notify(); }
 		 */
+		
+		mSurfaceView.resume();
+		
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		
+		Log.d(TAG,"onDestroy");
 
 		/*
 		 * // Make sure the drawing thread goes away. synchronized

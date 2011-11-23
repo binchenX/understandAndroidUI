@@ -3,6 +3,7 @@ package com.pierr;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -14,7 +15,8 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 
 	SurfaceHolder holder = null;
 	Thread t;
-	boolean shouldRun = false;
+	boolean mShouldRun = false;
+	boolean mShouldExit = false;
 
 	float x = 20;
 	float y = 20;
@@ -66,7 +68,7 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 
 		if (isFirstTime) {
 			isFirstTime = false;
-			shouldRun = true;
+			mShouldRun = true;
 			t.start();
 		} else {
 			resume();
@@ -81,6 +83,12 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 			// to get he monitor on this object by using synchronized
 			
 			//better to set the priority of this thread..
+			
+			if(mShouldExit)
+			{
+				Log.d("UnderstandAndroidUI", "SurfaceView draw Thread exit");
+				return;
+			}
 
 			try {
 				Thread.sleep(500);
@@ -88,7 +96,7 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 
 			}
 			synchronized (this) {
-				if (shouldRun == false) {
+				if (mShouldRun == false) {
 					try {
 
 						Log.d("UnderstandAndroidUI", "Waiting to be run");
@@ -103,13 +111,61 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 				int width = canvas.getWidth();
 				int height = canvas.getHeight();
 
-				Log.d("MySurfaceView", "width x height = " + width + ","
-						+ height);
+				
+				String text = "MySurfaceView canvas width " + width + " height " + height;
+				
+				
+	
 
-				y += 50;
 				Paint paint = new Paint();
+				
 				paint.setARGB(255, 255, 0, 0);
+				
+				
 
+				
+				canvas.drawText(text, 0, 40, paint);
+	
+				//print clip
+				Rect r = canvas.getClipBounds();
+				
+				 text = "MySurfaceView canvas clip " + r.right + " height " + r.bottom;
+				
+				 canvas.drawText(text, 0, 60, paint);
+				
+				
+				
+				
+				//draw an outline use width ,height
+				
+				//float []pts = {5 , 5 , width - 100 , 5, width - 50 , 5 , width - 50 , height -5};
+				//canvas.drawLines(pts, paint);
+				
+				
+				
+				
+//				float []pts2 = {0 , 5 , 400 , 5, 400 , 5 , 400 , height -5};
+//				canvas.drawLines(pts2, paint);
+//				
+//				float []pts3 = {0 , 10 , 448 , 10, 448 , 10 , 448 , height -10};
+//				canvas.drawLines(pts3, paint);
+				
+				//canvs.drawLine(10 ,10 , width - 100, 10)
+				
+				//the report canvas width is 450 , but actually, actually
+				//you can only see half of the circle ,indicating that the 
+				//valid width is only 400
+
+				
+				canvas.drawCircle(400, 50, 50, paint);
+				
+				y += 50;
+				
+			
+				
+				
+				//The x ,y is relative to the left, top
+				//drawing operation outside of the canvas will be clipped 
 				canvas.drawCircle(x, y, 20, paint);
 
 				holder.unlockCanvasAndPost(canvas);
@@ -121,15 +177,26 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 
 		Log.d(TAG, "enter on pause");
 		synchronized (this) {
-			shouldRun = false;
+			mShouldRun = false;
 
 		}
+	}
+	
+	public void stop(){
+		Log.d(TAG, "enter stop");
+		synchronized (this) {
+			mShouldExit = true;
+			mShouldRun = false;
+			//notify();
+		}
+		
+		
 	}
 
 	public void resume() {
 
 		synchronized (this) {
-			shouldRun = true;
+			mShouldRun = true;
 			notify();
 		}
 	}
