@@ -16,25 +16,29 @@ public class MyCustomizeView extends View{
 
 	Paint mPaintBackground = new Paint();
 	Paint mPaintText = new Paint();
+	
+	String mFocusIndicate = "uknown";
 	public MyCustomizeView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
-		//mPaint.setColor(Color.GREEN);
-		//mPaintBackground.setARGB(255, 255, 0, 0);
+				init();
+			
 	}
 
 	
-   //This is a must
+    //This is a MUST if you want to use MyCustomizeView in the XML
 	public MyCustomizeView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
-		// TODO Auto-generated constructor stub
-		//mPaint.setColor(Color.RED);
+		init();
+	}
+	
+	private void init()
+	{
+		
+		setFocusable(true);
 		mPaintBackground.setARGB(255, 255, 0, 0);
 		mPaintText.setColor(Color.GREEN);
 		mPaintText.setTextSize(10);
-		
-		//mPaint.s
 	}
 
 
@@ -82,7 +86,42 @@ public class MyCustomizeView extends View{
 				mPaintText);
 		
 		
+		canvas.drawText(mFocusIndicate,
+				50,  100, 
+				mPaintText);
+		
+		
 	}
+
+
+	@Override
+	protected void onFocusChanged(boolean gainFocus, int direction,
+			Rect previouslyFocusedRect) {
+		// TODO Auto-generated method stub
+		//super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
+		
+		//String msg = "";
+		if(gainFocus == true)
+		{
+			mFocusIndicate = "I am in Focus";	
+			
+		}else {
+			
+			
+			mFocusIndicate = "unFoucsed.";
+		}
+		
+		invalidate();
+	}
+
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+	}
+	
+	
 	
 	
 	
