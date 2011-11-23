@@ -22,13 +22,20 @@ android:id="@+id/button2"
 android:layout_width="wrap_content" 
 android:layout_height="wrap_content"></Button>
 
+<com.pierr.MyCustomizeView 
+
+    android:id="@+id/myCustomizeView1" 
+	android:layout_width="300dp"
+	android:layout_height="100dp" 
+	android:layout_weight="0.51"
+/>
 
 <com.pierr.MySurfaceView 
    
 	android:id="@+id/surfaceView1" 
 	android:layout_width="300dp" 
+	android:layout_height="100dp" 
 	android:background="@drawable/icon" 
-	android:layout_height="210dp" 
 	android:layout_weight="0.51"/>
 
 </LinearLayout>

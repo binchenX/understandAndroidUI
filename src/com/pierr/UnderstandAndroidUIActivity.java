@@ -122,7 +122,7 @@ public class UnderstandAndroidUIActivity extends Activity implements
 
 		setUpListeners();
 //
-//		mSurfaceView = (MySurfaceView) findViewById(R.id.surfaceView1);
+		mSurfaceView = (MySurfaceView) findViewById(R.id.surfaceView1);
 
 		// This is the thread that will be drawing to our surface.
 		// mDrawingThread = new DrawingThread();
@@ -132,11 +132,11 @@ public class UnderstandAndroidUIActivity extends Activity implements
 
 	private void drawSurfaceView() {
 
-		Canvas canvas = mSurfaceView.getHolder().lockCanvas();
+		//Canvas canvas = mSurfaceView.getHolder().lockCanvas();
 
-		mSurfaceView.draw(canvas);
+		//mSurfaceView.draw(canvas);
 
-		mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
+		//mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
 
 	}
 
@@ -154,11 +154,11 @@ public class UnderstandAndroidUIActivity extends Activity implements
 				toogle = !toogle;
 				if (toogle == true) {
 					Log.d(TAG, "Let's play mSurfaceView");
-					//mSurfaceView.play();
+					mSurfaceView.play();
 					
 				} else {
 					Log.d(TAG, "Let's pause mSurfaceView");
-					//mSurfaceView.pause();
+					mSurfaceView.pause();
 					Log.d(TAG, "end pause ");
 				}
 

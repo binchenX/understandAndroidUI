@@ -41,6 +41,8 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 		// TODO Auto-generated constructor stub
 		init();
 	}
+	
+	//This constructor must be defined in order to use MySurfaceView in the XML file
 
 	public MySurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
